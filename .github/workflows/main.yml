@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bio Me~</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-image: url('NEW folder/image/BK.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+        .social-links {
+            text-align: center;
+            margin-top: 50px; /* Adjust margin-top as needed */
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .social-links a:hover img {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+        }
+        img {
+            display: block;
+            margin: auto;
+        }
+        .calculator {
+            margin: 0 auto;
+            text-align: center;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+        }
+        .calculator input[type="button"] {
+            width: 60px;
+            height: 60px;
+            font-size: 20px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #e6e6e6;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calculator input[type="button"]:hover {
+            background-color: #d9d9d9;
+        }
+        .calculator input[type="text"] {
+            width: 100%;
+            font-size: 24px;
+            text-align: right;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            background-color: #fff;
+        }
+        .today {
+            background-color: #f0f0f0;
+        }
+        .month-navigation {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        var currentYear = new Date().getFullYear();
+        var currentMonth = new Date().getMonth();
+
+        function generateCalendar(year, month) {
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var html = '<table>';
+            html += '<caption>' + months[month] + ' ' + year + '</caption>';
+            html += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
+            html += '<tbody>';
+
+            var firstDay = new Date(year, month, 1).getDay();
+            var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            html += '<tr>';
+
+            for (var i = 0; i < firstDay; i++) {
+                html += '<td></td>';
+            }
+
+            for (var day = 1; day <= daysInMonth; day++) {
+                var currentDate = new Date(year, month, day);
+                var className = currentDate.toDateString() === new Date().toDateString() ? 'today' : '';
+                html += '<td class="' + className + '">' + day + '</td>';
+
+                if (new Date(year, month, day + 1).getDay() === 0 && day !== daysInMonth) {
+                    html += '</tr><tr>';
+                }
+            }
+
+            html += '</tr>';
+            html += '</tbody></table>';
+
+            document.getElementById('calendar').innerHTML = html;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar(currentYear, currentMonth);
+
+            document.getElementById('prevMonth').addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                generateCalendar(currentYear, currentMonth);
+            });
+
+            document.getElementById('nextMonth').addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                generateCalendar(currentYear, currentMonth);
+            });
+        });
+
+        function calculate() {
+            var input = document.getElementById('display');
+            input.value = eval(input.value);
+        }
+
+        function clearInput() {
+            document.getElementById('display').value = '';
+        }
+
+        function append(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function RedirectInstagram() {
+            window.location.href = "https://www.instagram.com/bb_yummyy/";
+        }
+
+        function RedirectFacebook() {
+            window.location.href = "https://www.facebook.com/profile.php?id=100027927347046&locale=th_TH";
+        }
+
+        function RedirectTikTok() {
+            window.location.href = "https://www.tiktok.com/@yum_yum______";
+        }
+        function RedirectYoutube(){
+            window.location.href = "https://www.youtube.com/channel/UC3Ul2pWuRWX5rHZ4_L7cwUg";
+    
+        }
+    </script>
+</head>
+<body>
+    
+    <h1>BIO Yum</h1>
+    <hr size="3px" noshade>
+    <div class="social-links">
+        <a href="#" onclick="RedirectInstagram();"><img src="NEW folder/image/ig.png" width="100"></a>
+        <a href="#" onclick="RedirectTikTok();"><img src="NEW folder/image/tiktok-logo-300x300.png" width="100"></a>
+        <a href="#" onclick="RedirectFacebook();"><img src="NEW folder/image/facebook.png" width="100"></a>
+        <a href="#" onclick="RedirectYoutube();"><img src="NEW folder/image/youtube.png" width="100"></a>
+    </div>
+    <div class="calculator">
+        <input type="text" id="display" disabled><br>
+        <input type="button" value="7" onclick="append('7')">
+        <input type="button" value="8" onclick="append('8')">
+        <input type="button" value="9" onclick="append('9')">
+        <input type="button" value="/" onclick="append('/')"><br>
+        <input type="button" value="4" onclick="append('4')">
+        <input type="button" value="5" onclick="append('5')">
+        <input type="button" value="6" onclick="append('6')">
+        <input type="button" value="*" onclick="append('*')"><br>
+        <input type="button" value="1" onclick="append('1')">
+        <input type="button" value="2" onclick="append('2')">
+        <input type="button" value="3" onclick="append('3')">
+        <input type="button" value="-" onclick="append('-')"><br>
+        <input type="button" value="C" onclick="clearInput()">
+        <input type="button" value="0" onclick="append('0')">
+        <input type="button" value="=" onclick="calculate()">
+        <input type="button" value="+" onclick="append('+')">
+    </div>
+    <div class="month-navigation">
+        <button id="prevMonth">Previous Month</button>
+        <button id="nextMonth">Next Month</button>
+    </div>
+    <div id="calendar"></div>
+</body>
+</html>
